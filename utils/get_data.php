@@ -26,12 +26,12 @@ function getData($data)
 
         if (curl_getinfo($ch, CURLINFO_HTTP_CODE) == 200 && !isset($parsed_data->erro)) {
           $cep_controller->addCEP($pdo, $parsed_data, $cep);
-          return ['data' => $parsed_data, 'response' => true, 'alert' => true, 'alert_type' => 'success', 'alert_msg' => 'Consulta feita com sucesso', 'frombd' => false];
+          return ['api_data' => $parsed_data, 'alert_type' => 'success'];
         } else {
           if (isset($parsed_data->erro)) {
-            return ['error' => true, 'response' => false, 'alert' => true, 'alert_type' => 'warning', 'alert_msg' => 'CEP válido, mas não existe na nossa base de dados'];
+            return ['error' => true, 'alert_type' => 'warning', 'alert_msg' => 'CEP válido, mas não existe na nossa base de dados'];
           } else {
-            return ['error' => true, 'response' => false, 'alert' => true, 'alert_type' => 'danger', 'alert_msg' => 'CEP inválido'];
+            return ['error' => true, 'alert_type' => 'danger', 'alert_msg' => 'CEP inválido'];
           }
         }
         curl_close($ch);
@@ -39,10 +39,10 @@ function getData($data)
         $cep_controller->addCEP($pdo, $parsed_data, $cep);
       } else {
         $data = $cep_controller->getCEP($pdo, $cep);
-        return ['data' => $data, 'response' => true, 'alert' => true, 'alert_type' => 'success', 'alert_msg' => 'Consulta feita com sucesso', 'frombd' => true];
+        return ['db_data' => $data, 'alert_type' => 'success'];
       }
     } else {
-      return ['error' => true, 'response' => false, 'alert' => true, 'alert_type' => 'danger', 'alert_msg' => 'O campo de CEP está vazio'];
+      return ['error' => true, 'alert_type' => 'danger', 'alert_msg' => 'O campo de CEP está vazio'];
     }
   }
 }

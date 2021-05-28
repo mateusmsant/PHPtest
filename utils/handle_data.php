@@ -5,6 +5,7 @@ $not_found = false;
 if (!empty($_POST)) {
   $data = getData($_POST);
   if ($data) {
+    $alert_type = $data['alert_type'];
     switch ($data['alert_type']) {
       case 'success':
         $alert_bg = "#66bb6a";
@@ -18,8 +19,10 @@ if (!empty($_POST)) {
         break;
     }
     if (!isset($data['error'])) {
-      if ($data['frombd']) {
-        $cep_info = $data['data'];
+      $response = true;
+      $alert_msg = 'Consulta feita com sucesso';
+      if (isset($data['db_data'])) {
+        $cep_info = $data['db_data'];
         $cep = $cep_info['cep'];
         $logradouro = $cep_info['logradouro'];
         $complemento = $cep_info['complemento'];
@@ -30,8 +33,8 @@ if (!empty($_POST)) {
         $gia = $cep_info['gia'];
         $ddd = $cep_info['ddd'];
         $siafi = $cep_info['siafi'];
-      } else if (!$data['frombd']) {
-        $cep_info = $data['data'];
+      } else {
+        $cep_info = $data['api_data'];
         $cep = $cep_info->cep;
         $logradouro = $cep_info->logradouro;
         $complemento = $cep_info->complemento;
@@ -45,11 +48,12 @@ if (!empty($_POST)) {
       }
 
       $cep = normalizeCEP($cep);
+    } else {
+      $alert_msg = $data['alert_msg'];
+      $response = false;
     }
-    $response = $data['response'];
-    $alert = $data['alert'];
-    $alert_type = $data['alert_type'];
-    $alert_msg = $data['alert_msg'];
+
+    $alert = true;
     $alert_style = "background-color: $alert_bg; color: #e9eaec; border: none;";
   }
 }

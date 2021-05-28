@@ -12,6 +12,7 @@ $db_password = $db_data['db_password'];
 $table_name = $db_data['table_name'];
 
 $pdo = new PDO("mysql:host=$host;port=$port;", $db_user, $db_password);
+$pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 try {
   $query = "CREATE DATABASE IF NOT EXISTS `$db_name`";
   $pdo->exec($query);
@@ -21,7 +22,6 @@ try {
 
 $db = new DBConnection($db_data);
 $pdo = $db->getInstance();
-
 try {
   $query = "CREATE TABLE IF NOT EXISTS `$table_name` ( 
   `id` INT NOT NULL AUTO_INCREMENT,
