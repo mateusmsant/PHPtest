@@ -2,6 +2,7 @@
 
 $title = 'Consulta de CEP';
 
+require_once('utils/setup.php');
 require_once('utils/get_data.php');
 require_once('utils/handle_data.php')
 
@@ -14,9 +15,7 @@ require_once('utils/handle_data.php')
   <?php if (isset($response) && $response) { ?>
     <?php require_once('components/result.php'); ?>
   <?php } else if ($not_found) { ?>
-    <div class="empty">
-      <object data="img/undraw_empty.svg" width="300" height="300"></object>
-    </div>
+    <?php require_once('components/empty.php') ?>
   <?php } ?>
   <?php require_once('components/alert.php'); ?>
 </body>

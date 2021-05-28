@@ -1,11 +1,13 @@
 <?php
 
-require_once('db/db.php');
 require_once('controller/CepController.php');
+require_once('db/db.php');
+require_once('utils/db_data.php');
 
 function getData($data)
 {
-  $db = new DBConnection();
+  $db_data = getDBConnectionData();
+  $db = new DBConnection($db_data);
   $pdo = $db->getInstance();
   $cep_controller = new CEPController('ceps');
 
@@ -47,7 +49,7 @@ function getData($data)
 
 function normalizeCEP($cep)
 {
-  if (str_contains($cep, '-')) {
+  if (strpos($cep, '-')) {
     return str_replace('-', '', $cep);
   }
 
