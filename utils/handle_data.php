@@ -18,7 +18,7 @@ if (!empty($_POST)) {
         break;
     }
     if (!isset($data['error'])) {
-      if ($data['frombd']) { // From database
+      if ($data['frombd']) {
         $cep_info = $data['data'];
         $cep = $cep_info['cep'];
         $logradouro = $cep_info['logradouro'];
@@ -30,7 +30,7 @@ if (!empty($_POST)) {
         $gia = $cep_info['gia'];
         $ddd = $cep_info['ddd'];
         $siafi = $cep_info['siafi'];
-      } else if (!$data['frombd']) { // From api
+      } else if (!$data['frombd']) {
         $cep_info = $data['data'];
         $cep = $cep_info->cep;
         $logradouro = $cep_info->logradouro;
@@ -50,6 +50,6 @@ if (!empty($_POST)) {
     $alert = $data['alert'];
     $alert_type = $data['alert_type'];
     $alert_msg = $data['alert_msg'];
-    $alert_style = "background-color: $alert_bg; color: #e9eaec; border: none; opacity: 1";
+    $alert_style = "background-color: $alert_bg; color: #e9eaec; border: none;";
   }
 }

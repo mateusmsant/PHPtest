@@ -1,6 +1,14 @@
+<?php
+function stringInsert($str, $insertstr, $pos)
+{
+  $str = substr($str, 0, $pos) . $insertstr . substr($str, $pos);
+  return $str;
+}
+?>
+
 <div class="result">
   <?php if (isset($cep)) { ?>
-    <p class="cep"><?php echo $cep ?></p>
+    <p class="cep"><?php echo stringInsert($cep, '-', 5); ?></p>
   <?php } ?>
   <?php if (isset($logradouro) && $logradouro != '') { ?>
     <p><span>Rua:</span> <?php echo $logradouro; ?></p>

@@ -1,10 +1,15 @@
 <?php
 
-$title = 'Consulta de CEP';
+session_start();
+if (!empty($_POST)) {
+  $_SESSION['input'] = $_POST['cep'];
+}
 
+$title = 'Consulta de CEP';
 require_once('utils/setup.php');
 require_once('utils/get_data.php');
 require_once('utils/handle_data.php')
+
 
 ?>
 

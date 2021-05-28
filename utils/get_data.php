@@ -9,7 +9,7 @@ function getData($data)
   $db_data = getDBConnectionData();
   $db = new DBConnection($db_data);
   $pdo = $db->getInstance();
-  $cep_controller = new CEPController('ceps');
+  $cep_controller = new CEPController($db_data['table_name']);
 
   if (!empty($data)) {
     $cep = normalizeCEP($data['cep']);
